@@ -25,3 +25,6 @@ responsibilities.
 - Transaction history (planned)
 
 
+## References
+- Python Object-Oriented Programming: Build Robust and Maintainable Object-Oriented Python Applications and Libraries, 4th Edition by Dusty Phillips and Steven F. Lott
+
