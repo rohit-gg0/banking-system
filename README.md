@@ -7,9 +7,13 @@ responsibilities.
 ## Features
 - Money as a value object (minor units, immutable behavior)
 - Currency-safe operations using Enum
+- Multi-currency accounts
+- External currency conversion via CurrencyConverter
+- Deposit, withdraw, transfer
 - Savings and Current accounts with policy-based constraints
 - Bank as an orchestrator for accounts and transfers
-- External currency conversion via CurrencyConverter
+- Transaction history
+- Failed transaction tracking
 
 ## Design Principles
 - No floating-point money
@@ -22,8 +26,7 @@ responsibilities.
 - Accounts
 - Bank
 - Transfers
-- Transaction history (planned)
-
+- Transaction history
 
 ## References
 - Python Object-Oriented Programming: Build Robust and Maintainable Object-Oriented Python Applications and Libraries, 4th Edition by Dusty Phillips and Steven F. Lott
