@@ -1,12 +1,13 @@
 from __future__ import annotations
+from typing import Dict
 from Money import *
 from Currency import *
 
 class CurrencyConverter:
-    dlr_rates = {
-        Currency.dlr:1,
-        Currency.inr:81,
-        Currency.dih:69
+    dlr_rates: Dict[Currency,int] = {
+        Currency.USD:1,
+        Currency.INR:81,
+        Currency.EUR:100,
         }
 
     def convert(self,money: Money,to: Currency) -> Money:

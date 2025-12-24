@@ -1,9 +1,9 @@
 from enum import Enum
 
 class Currency(Enum):
-    inr = "INR"
-    dlr = "DLR"
-    dih = "DIH"
+    INR = "INR"
+    USD = "DLR"
+    EUR = "EUR"
 
 class CurrencyError(ValueError):
     pass

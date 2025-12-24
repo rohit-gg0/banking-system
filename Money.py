@@ -5,12 +5,11 @@ class Money:
     def __init__(self,amount: int, currency: Currency):
         if isinstance(amount,bool) or  not isinstance(amount,int):
             raise TypeError("Amount must be int (minor units)")
-
-        self._amount = amount
-
+        
         if not isinstance(currency,Currency):
             raise TypeError(f"Invalid Currency {currency}")
-        
+
+        self._amount = amount        
         self._currency = currency
 
     @property
@@ -84,5 +83,4 @@ class Money:
     
     def __hash__(self):
         return hash((self._amount,self._currency))
-        
-        
+    
