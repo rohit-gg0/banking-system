@@ -35,44 +35,23 @@ class Money:
         return Money(self._amount-other._amount,self._currency)
     
     def __eq__(self, other: Money) -> bool:
-        if not isinstance(other,Money):
-            return False
-        return (self._currency == other._currency) and (self._amount == other._amount)
+        self._assetr_compatible(other)
+        return (self._amount == other._amount)
     
     def __lt__(self, other: Money) -> bool:
-        if not isinstance(other,Money):
-            return NotImplemented
-        
-        if self._currency!=other._currency:
-            raise CurrencyError(f"The currencies doesnot match")
-        
+        self._assetr_compatible(other)
         return self._amount<other._amount
     
     def __le__(self, other: Money) -> bool:
-        if not isinstance(other,Money):
-            return NotImplemented
-        
-        if self._currency!=other._currency:
-            raise CurrencyError(f"The currencies doesnot match")
-        
+        self._assetr_compatible(other)
         return self._amount<=other._amount
     
     def __gt__(self, other: Money) -> bool:
-        if not isinstance(other,Money):
-            return NotImplemented
-        
-        if self._currency!=other._currency:
-            raise CurrencyError(f"The currencies doesnot match")
-        
+        self._assetr_compatible(other)
         return self._amount>other._amount
     
     def __ge__(self, other: Money) -> bool:
-        if not isinstance(other,Money):
-            return NotImplemented
-        
-        if self._currency!=other._currency:
-            raise CurrencyError(f"The currencies doesnot match")
-        
+        self._assetr_compatible(other)
         return self._amount>=other._amount
     
     def __repr__(self) -> str:
