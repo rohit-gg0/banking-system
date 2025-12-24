@@ -30,7 +30,7 @@ class Bank:
         account = SavingsAccount(initial_balance,min_b)
         self._accounts[id] = account
 
-        self._next_account_id +=1
+        self._next_account_id +=10
 
         return id
 
@@ -53,6 +53,10 @@ class Bank:
             return self._accounts[id]
         except KeyError: 
             raise AccountError(f"the account with id={id} doesnot exist")
+        
+    def check_balance(self,acc_id: int) -> Money:
+        acc = self.get_account(acc_id)
+        return acc.balance
         
     def withdraw(self, acc_id: int, amount: Money) -> bool:            
         if not isinstance(amount,Money):
