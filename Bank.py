@@ -1,18 +1,22 @@
 from __future__ import annotations
+from datetime import datetime
 from typing import Dict, List
-from Currency import *
-from Money import *
-from Accounts import *
-from CurrencyConverter import *
-from Transaction import *
+from Money import Money
+from Accounts import Account,SavingsAccount,CurrentAccount,InsufficientFundsError,WithdrawError,DepositionError
+from CurrencyConverter import CurrencyConverter
+from Transaction import Transaction,TransactionAttempt,TransactionType
 
 class AccountError(RuntimeError):
+    pass
+
+class WrongPassword(ValueError):
     pass
 
 class Bank:
 
     def __init__(self):
         self._accounts : Dict[int,Account] = dict()
+        self._acc_passwords: Dict[int,str] = dict()
         self._min_balance_minor: int = 500000
         self._overdraft_limit_minor: int = 1000000
         self._next_account_id: int = 1000
@@ -27,8 +31,15 @@ class Bank:
         min_b = Money(self._min_balance_minor,initial_balance.currency)
 
         id = self._next_account_id
+        print("Enter a password")
+        while True:
+            password = input("(alphanumeric only)>>>").strip()
+            if password.isalnum():
+                break
+
         account = SavingsAccount(initial_balance,min_b)
         self._accounts[id] = account
+        self._acc_passwords[id] = password
 
         self._next_account_id +=10
 
@@ -41,18 +52,40 @@ class Bank:
         overd = Money(self._overdraft_limit_minor,initial_balance.currency)
 
         id = self._next_account_id
+        print("Enter a password")
+        while True:
+            password = input("(alphanumeric only)>>>").strip()
+            if password.isalnum():
+                break
+
         account = CurrentAccount(initial_balance,overd)
         self._accounts[id] = account
+        self._acc_passwords[id] = password
 
         self._next_account_id +=1
 
         return id
 
     def get_account(self,id: int):
-        try:
-            return self._accounts[id]
-        except KeyError: 
-            raise AccountError(f"the account with id={id} doesnot exist")
+        
+        c=0
+        while True:
+            try:
+                if id not in self._accounts:
+                    raise KeyError()
+                print("Enter the password")
+                password = input(">>>").strip()
+                if self._acc_passwords[id]!=password:
+                    c=c+1
+                    raise ValueError("Wrong Password")
+                return self._accounts[id]
+            except ValueError as v:
+                print("Wrong Password")
+                if c>=3:
+                    print("3 wrong attempts, program terminating")
+                    raise WrongPassword("Wrong Password")
+            except KeyError: 
+                raise AccountError(f"the account with id={id} doesnot exist")
         
     def check_balance(self,acc_id: int) -> Money:
         acc = self.get_account(acc_id)
@@ -133,15 +166,37 @@ class Bank:
         return True
     
     @property
-    def transactions(self):
+    def transactions(self) -> List[str]:
         l=[]
         for t in self._transactions:
             l.append(t.__repr__())
         return l
     
     @property
-    def failed_transactions(self):
+    def failed_transactions(self) -> List[str]:
         l=[]
         for t in self._transaction_attempt:
             l.append(f"{t!r}")
+        return l
+    
+    @property
+    def get_min_balance_savings_minor(self) -> int:
+        return self._min_balance_minor
+    
+    @property
+    def get_overdraft_limit_minor(self) -> int:
+        return self._overdraft_limit_minor
+    
+    def get_acc_transaction_history(self,id: int) -> List[str]:
+        l=[]
+        self.get_account(id)
+
+        for t in self._transactions:
+            if t._deposit_acc == id or t._withdraw_acc == id:
+                l.append(f"{t!r}")
+
+        for t in self._transaction_attempt:
+            if t.withdraw_account == id or t.deposit_account == id:
+                l.append(f"{t!r}")
+
         return l

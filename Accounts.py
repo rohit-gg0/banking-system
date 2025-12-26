@@ -1,7 +1,7 @@
 from __future__ import annotations
 import abc
-from Money import *
-from Currency import *
+from Money import Money
+from Currency import Currency,CurrencyError
 
 class InsufficientFundsError(RuntimeError):
     pass
@@ -22,7 +22,7 @@ class Account(abc.ABC):
         if initial_balance.currency!=min_balance.currency:
             raise CurrencyError("Initial_balance and min_balance not the same currency")
         
-        if initial_balance.amount < min_balance:
+        if initial_balance.amount < min_balance.amount:
             raise ValueError("Initial Balance cannot be less than the minimum Balance")
         
         self._balance = initial_balance

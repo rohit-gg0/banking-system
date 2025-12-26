@@ -1,5 +1,5 @@
 from __future__ import annotations
-from Currency import *
+from Currency import Currency, CurrencyError
 
 class Money:
     def __init__(self,amount: int, currency: Currency):

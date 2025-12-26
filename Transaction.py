@@ -2,8 +2,7 @@ from __future__ import annotations
 from typing import Optional
 from datetime import datetime
 from dataclasses import dataclass
-from Currency import *
-from Money import *
+from Money import Money
 from enum import Enum
 
 class TransactionType(Enum):
@@ -66,7 +65,7 @@ class TransactionAttempt:
             return (
                 f"[FAILED {self.transaction_type.value.upper()}]\n"
                 f"Amount: {self.amount!r}\n"
-                f"Account id: {self.deposit_acc}\n"
+                f"Account id: {self.deposit_account}\n"
                 f"Timestamp: {self.timestamp!r}\n"
                 f"Error: {type(self.error).__name__}: {self.error}\n"
             )
@@ -74,7 +73,7 @@ class TransactionAttempt:
             return (
                 f"[FAILED {self.transaction_type.value.upper()}]\n"
                 f"Amount: {self.amount!r}\n"
-                f"Account id: {self.withdraw_acc}\n"
+                f"Account id: {self.withdraw_account}\n"
                 f"Timestamp: {self.timestamp!r}\n"
                 f"Error: {type(self.error).__name__}: {self.error}\n"
             )
@@ -82,8 +81,8 @@ class TransactionAttempt:
         return (
             f"[FAILED {self.transaction_type.value.upper()}]\n"
             f"Amount: {self.amount!r}\n"
-            f"Withdraw Account id: {self.withdraw_acc}\n"
-            f"Deposit Account id: {self.deposit_acc}\n"
+            f"Withdraw Account id: {self.withdraw_account}\n"
+            f"Deposit Account id: {self.deposit_account}\n"
             f"Timestamp: {self.timestamp!r}\n"
             f"Error: {type(self.error).__name__}: {self.error}\n"
         )
