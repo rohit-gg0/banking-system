@@ -89,11 +89,11 @@ This project focuses on **clean domain modeling**, **error handling**, and **inc
   7. View transaction history
   8. Exit
 
-> 🚧 **Admin CLI is planned but not implemented yet**
+>  **Admin CLI is planned but not implemented yet**
 
 ---
 
-## 🧠 Design Philosophy
+## Design Philosophy
 
 - Money is always handled safely using integers
 - Business rules live inside domain objects (not the CLI)
