@@ -1,4 +1,3 @@
-from __future__ import annotations
 from Bank import Bank,AccountError,WrongPassword
 from Money import Money
 from Currency import Currency
@@ -43,13 +42,13 @@ elif ch=="user":
     print("\t5 - Open new Savings Account")
     print("\t6 - Open new Current Account")
     print("\t7 - View Transaction History")
-    print("\t8 - save and quit")
+    print("\tq - save and quit")
     print()
 
     while True:
-        c=int(input(">>>"))
+        c=(input(">>>")).strip()
 
-        if c==1:
+        if c=='1':
             id = int(input("enter Account id: "))
             try:
                 amt = bank.check_balance(id)
@@ -61,7 +60,7 @@ elif ch=="user":
                 continue
             print(str(amt))
 
-        elif c==2:
+        elif c=='2':
             id = int(input("enter Account id: "))
             currency = currencies[input("Enter Currency (INR/USD/EUR): ").upper()]
             amt = int(input("Enter the Amount in MINORS: "))
@@ -81,7 +80,7 @@ elif ch=="user":
             else:
                 print("Transaction Failed")
 
-        elif c==3:
+        elif c=='3':
             id = int(input("enter Account id: "))
             currency = currencies[input("Enter Currency (INR/USD/EUR): ").upper()]
             amt = int(input("Enter the Amount in MINORS: "))
@@ -101,7 +100,7 @@ elif ch=="user":
             else:
                 print(f"Transaction Failed")
 
-        elif c==4:
+        elif c=='4':
             id1 = int(input("enter from Account id: "))
             id2 = int(input("enter to Account id: "))
             currency = currencies[input("Enter Currency (INR/USD/EUR): ").upper()]
@@ -122,7 +121,7 @@ elif ch=="user":
             else:
                 print(f"Transaction Failed")
 
-        elif c==5:
+        elif c=='5':
             currency = currencies[input("Enter Currency (INR/USD/EUR): ").upper()]
             while True:
                 amt = int(input("Enter the Initial Balance in MINORS: "))
@@ -136,7 +135,7 @@ elif ch=="user":
             id = bank.open_savings_account(amt)
             print(f"Account Id: {id}")
             
-        elif c==6:
+        elif c=='6':
             currency = currencies[input("Enter Currency (INR/USD/EUR): ").upper()]
             while True:
                 amt = int(input("Enter the Initial Balance in MINORS: "))
@@ -150,7 +149,7 @@ elif ch=="user":
             id = bank.open_current_account(amt)
             print(f"Account Id: {id}")
 
-        elif c==7:
+        elif c=='7':
             id = int(input("enter Account id: "))
             try:
                 thl = bank.get_acc_transaction_history(id)
@@ -169,7 +168,7 @@ elif ch=="user":
                 print(t)
             print("End of Transaction History")
 
-        elif c==8:
+        elif c=='q':
             print("Thank You")
             break
 
